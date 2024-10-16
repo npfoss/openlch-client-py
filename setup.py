@@ -27,7 +27,7 @@ version: str = version_re.group(1)
 setup(
     name="openlch",
     version=version,
-    description="The openlch project",
+    description="The OpenLCH project command line interface",
     author="OpenLCH Contributors",
     url="https://github.com/Zeroth-Robotics/openlch-client-py",
     long_description=long_description,
