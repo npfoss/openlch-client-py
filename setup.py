@@ -37,4 +37,9 @@ setup(
     tests_require=requirements_dev,
     extras_require={"dev": requirements_dev},
     packages=["openlch"],
+    entry_points={
+        "console_scripts": [
+            "openlch=openlch.cli:cli",
+        ],
+    },
 )
