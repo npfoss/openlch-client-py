@@ -4,7 +4,7 @@ from . import hal_pb_pb2_grpc
 from typing import List, Tuple
 
 class Servo:
-    def __init__(self, host='localhost', port=50051):
+    def __init__(self, host='192.168.42.1', port=50051):
         self.channel = grpc.insecure_channel(f'{host}:{port}')
         self.stub = hal_pb_pb2_grpc.ServoControlStub(self.channel)
 
