@@ -35,7 +35,9 @@ class Servo:
                 'current': info.current,
                 'voltage': round(info.voltage, 2),
                 'speed': info.speed,
-                'current_position': info.current_position
+                'current_position': info.current_position,
+                'min_position': info.min_position,
+                'max_position': info.max_position
             }
         else:
             raise Exception(f"Error: {response.error.message} (Code: {response.error.code})")

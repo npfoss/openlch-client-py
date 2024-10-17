@@ -35,35 +35,35 @@ class ServoControlStub(object):
             channel: A grpc.Channel.
         """
         self.GetPositions = channel.unary_unary(
-            '/hal_pb.ServoControl/GetPositions',
-            request_serializer=hal__pb__pb2.Empty.SerializeToString,
-            response_deserializer=hal__pb__pb2.JointPositions.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/GetPositions',
+                request_serializer=hal__pb__pb2.Empty.SerializeToString,
+                response_deserializer=hal__pb__pb2.JointPositions.FromString,
+                _registered_method=True)
         self.SetPositions = channel.unary_unary(
-            '/hal_pb.ServoControl/SetPositions',
-            request_serializer=hal__pb__pb2.JointPositions.SerializeToString,
-            response_deserializer=hal__pb__pb2.Empty.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/SetPositions',
+                request_serializer=hal__pb__pb2.JointPositions.SerializeToString,
+                response_deserializer=hal__pb__pb2.Empty.FromString,
+                _registered_method=True)
         self.SetWifiInfo = channel.unary_unary(
-            '/hal_pb.ServoControl/SetWifiInfo',
-            request_serializer=hal__pb__pb2.WifiCredentials.SerializeToString,
-            response_deserializer=hal__pb__pb2.Empty.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/SetWifiInfo',
+                request_serializer=hal__pb__pb2.WifiCredentials.SerializeToString,
+                response_deserializer=hal__pb__pb2.Empty.FromString,
+                _registered_method=True)
         self.GetServoInfo = channel.unary_unary(
-            '/hal_pb.ServoControl/GetServoInfo',
-            request_serializer=hal__pb__pb2.ServoId.SerializeToString,
-            response_deserializer=hal__pb__pb2.ServoInfoResponse.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/GetServoInfo',
+                request_serializer=hal__pb__pb2.ServoId.SerializeToString,
+                response_deserializer=hal__pb__pb2.ServoInfoResponse.FromString,
+                _registered_method=True)
         self.Scan = channel.unary_unary(
-            '/hal_pb.ServoControl/Scan',
-            request_serializer=hal__pb__pb2.Empty.SerializeToString,
-            response_deserializer=hal__pb__pb2.ServoIds.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/Scan',
+                request_serializer=hal__pb__pb2.Empty.SerializeToString,
+                response_deserializer=hal__pb__pb2.ServoIds.FromString,
+                _registered_method=True)
         self.ChangeId = channel.unary_unary(
-            '/hal_pb.ServoControl/ChangeId',
-            request_serializer=hal__pb__pb2.IdChange.SerializeToString,
-            response_deserializer=hal__pb__pb2.ChangeIdResponse.FromString,
-            _registered_method=True)
+                '/hal_pb.ServoControl/ChangeId',
+                request_serializer=hal__pb__pb2.IdChange.SerializeToString,
+                response_deserializer=hal__pb__pb2.ChangeIdResponse.FromString,
+                _registered_method=True)
 
 
 class ServoControlServicer(object):
@@ -108,58 +108,58 @@ class ServoControlServicer(object):
 
 def add_ServoControlServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'GetPositions': grpc.unary_unary_rpc_method_handler(
-            servicer.GetPositions,
-            request_deserializer=hal__pb__pb2.Empty.FromString,
-            response_serializer=hal__pb__pb2.JointPositions.SerializeToString,
-        ),
-        'SetPositions': grpc.unary_unary_rpc_method_handler(
-            servicer.SetPositions,
-            request_deserializer=hal__pb__pb2.JointPositions.FromString,
-            response_serializer=hal__pb__pb2.Empty.SerializeToString,
-        ),
-        'SetWifiInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.SetWifiInfo,
-            request_deserializer=hal__pb__pb2.WifiCredentials.FromString,
-            response_serializer=hal__pb__pb2.Empty.SerializeToString,
-        ),
-        'GetServoInfo': grpc.unary_unary_rpc_method_handler(
-            servicer.GetServoInfo,
-            request_deserializer=hal__pb__pb2.ServoId.FromString,
-            response_serializer=hal__pb__pb2.ServoInfoResponse.SerializeToString,
-        ),
-        'Scan': grpc.unary_unary_rpc_method_handler(
-            servicer.Scan,
-            request_deserializer=hal__pb__pb2.Empty.FromString,
-            response_serializer=hal__pb__pb2.ServoIds.SerializeToString,
-        ),
-        'ChangeId': grpc.unary_unary_rpc_method_handler(
-            servicer.ChangeId,
-            request_deserializer=hal__pb__pb2.IdChange.FromString,
-            response_serializer=hal__pb__pb2.ChangeIdResponse.SerializeToString,
-        ),
+            'GetPositions': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetPositions,
+                    request_deserializer=hal__pb__pb2.Empty.FromString,
+                    response_serializer=hal__pb__pb2.JointPositions.SerializeToString,
+            ),
+            'SetPositions': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetPositions,
+                    request_deserializer=hal__pb__pb2.JointPositions.FromString,
+                    response_serializer=hal__pb__pb2.Empty.SerializeToString,
+            ),
+            'SetWifiInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.SetWifiInfo,
+                    request_deserializer=hal__pb__pb2.WifiCredentials.FromString,
+                    response_serializer=hal__pb__pb2.Empty.SerializeToString,
+            ),
+            'GetServoInfo': grpc.unary_unary_rpc_method_handler(
+                    servicer.GetServoInfo,
+                    request_deserializer=hal__pb__pb2.ServoId.FromString,
+                    response_serializer=hal__pb__pb2.ServoInfoResponse.SerializeToString,
+            ),
+            'Scan': grpc.unary_unary_rpc_method_handler(
+                    servicer.Scan,
+                    request_deserializer=hal__pb__pb2.Empty.FromString,
+                    response_serializer=hal__pb__pb2.ServoIds.SerializeToString,
+            ),
+            'ChangeId': grpc.unary_unary_rpc_method_handler(
+                    servicer.ChangeId,
+                    request_deserializer=hal__pb__pb2.IdChange.FromString,
+                    response_serializer=hal__pb__pb2.ChangeIdResponse.SerializeToString,
+            ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-        'hal_pb.ServoControl', rpc_method_handlers)
+            'hal_pb.ServoControl', rpc_method_handlers)
     server.add_generic_rpc_handlers((generic_handler,))
     server.add_registered_method_handlers('hal_pb.ServoControl', rpc_method_handlers)
 
 
-# This class is part of an EXPERIMENTAL API.
+ # This class is part of an EXPERIMENTAL API.
 class ServoControl(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
     def GetPositions(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -178,15 +178,15 @@ class ServoControl(object):
 
     @staticmethod
     def SetPositions(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -205,15 +205,15 @@ class ServoControl(object):
 
     @staticmethod
     def SetWifiInfo(request,
-                    target,
-                    options=(),
-                    channel_credentials=None,
-                    call_credentials=None,
-                    insecure=False,
-                    compression=None,
-                    wait_for_ready=None,
-                    timeout=None,
-                    metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -232,15 +232,15 @@ class ServoControl(object):
 
     @staticmethod
     def GetServoInfo(request,
-                     target,
-                     options=(),
-                     channel_credentials=None,
-                     call_credentials=None,
-                     insecure=False,
-                     compression=None,
-                     wait_for_ready=None,
-                     timeout=None,
-                     metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -259,15 +259,15 @@ class ServoControl(object):
 
     @staticmethod
     def Scan(request,
-             target,
-             options=(),
-             channel_credentials=None,
-             call_credentials=None,
-             insecure=False,
-             compression=None,
-             wait_for_ready=None,
-             timeout=None,
-             metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
@@ -286,15 +286,15 @@ class ServoControl(object):
 
     @staticmethod
     def ChangeId(request,
-                 target,
-                 options=(),
-                 channel_credentials=None,
-                 call_credentials=None,
-                 insecure=False,
-                 compression=None,
-                 wait_for_ready=None,
-                 timeout=None,
-                 metadata=None):
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            insecure=False,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
         return grpc.experimental.unary_unary(
             request,
             target,
