@@ -1,3 +1,3 @@
 __version__ = "0.3.0"
 
-from .grpc import Servo
+from .hal import HAL

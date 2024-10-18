@@ -1,0 +1,58 @@
+image: python:3.10
+
+variables:
+  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.pip-cache"
+  DOCS_IMAGE: $CI_REGISTRY_IMAGE/docs:$CI_COMMIT_TAG
+
+cache:
+  paths:
+    - .pip-cache/
+
+stages:
+  - build_docs
+  - build_docker
+  - publish
+
+build_docs:
+  stage: build_docs
+  only:
+    - tags
+  script:
+    - pip install --upgrade pip
+    - pip install pdoc
+    - pdoc openlch -o docs
+  artifacts:
+    paths:
+      - docs/
+
+build_docker:
+  stage: build_docker
+  image: docker:latest
+  services:
+    - docker:dind
+  only:
+    - tags
+  before_script:
+    - echo "$CI_REGISTRY_PASSWORD" | docker login $CI_REGISTRY -u $CI_REGISTRY_USER --password-stdin
+  script:
+    - |
+      cat <<EOF > Dockerfile
+      FROM nginx:alpine
+      COPY docs /usr/share/nginx/html/docs
+      EOF
+    - docker build --pull -t $DOCS_IMAGE .
+    - docker push $DOCS_IMAGE
+
+publish:
+  stage: publish
+  only:
+    - tags
+  script:
+    - pip install --upgrade pip
+    - pip install build wheel
+    - python -m build --sdist --wheel --outdir dist/ .
+    - pip install twine
+    - TWINE_PASSWORD=${PYPI_API_TOKEN} TWINE_USERNAME=__token__ python -m twine upload dist/*
+  artifacts:
+    paths:
+      - dist/*

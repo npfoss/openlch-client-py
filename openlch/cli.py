@@ -2,7 +2,7 @@
 
 import subprocess
 import click
-from .grpc import Servo
+from .hal import HAL
 
 DEFAULT_IP = "192.168.42.1"
 
@@ -42,16 +42,16 @@ def ping(ip: str) -> None:
 @click.argument("ip", default=DEFAULT_IP)
 def get_positions(ip: str) -> None:
     """Get current positions of all servos."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        positions = client.get_positions()
+        positions = hal.servo.get_positions()
         click.echo("Current positions:")
         for id, position in positions:
             click.echo(f"Servo {id}: {position}")
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 @cli.command()
 @click.argument("id", type=int)
@@ -59,14 +59,14 @@ def get_positions(ip: str) -> None:
 @click.argument("ip", default=DEFAULT_IP)
 def set_position(id: int, position: float, ip: str) -> None:
     """Set position for a specific servo."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        client.set_positions([(id, position)])
+        hal.servo.set_positions([(id, position)])
         click.echo(f"Position set for servo {id} to {position}")
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 @cli.command()
 @click.argument("ssid")
@@ -74,45 +74,45 @@ def set_position(id: int, position: float, ip: str) -> None:
 @click.argument("ip", default=DEFAULT_IP)
 def set_wifi(ssid: str, password: str, ip: str) -> None:
     """Set WiFi credentials for the MilkV board."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        client.set_wifi_info(ssid, password)
+        hal.system.set_wifi_info(ssid, password)
         click.echo("WiFi credentials set successfully")
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 @cli.command()
 @click.argument("id", type=int)
 @click.argument("ip", default=DEFAULT_IP)
 def get_servo_info(id: int, ip: str) -> None:
     """Get information about a specific servo."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        info = client.get_servo_info(id)
+        info = hal.servo.get_servo_info(id)
         click.echo(f"Servo {id} info:")
         for key, value in info.items():
             click.echo(f"{key}: {value}")
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 @cli.command()
 @click.argument("ip", default=DEFAULT_IP)
 def scan_servos(ip: str) -> None:
     """Scan for connected servos."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        servo_ids = client.scan()
+        servo_ids = hal.servo.scan()
         click.echo("Found servo IDs:")
         for id in servo_ids:
             click.echo(id)
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 @cli.command()
 @click.argument("old_id", type=int)
@@ -120,9 +120,9 @@ def scan_servos(ip: str) -> None:
 @click.argument("ip", default=DEFAULT_IP)
 def change_servo_id(old_id: int, new_id: int, ip: str) -> None:
     """Change the ID of a servo."""
-    client = Servo(ip)
+    hal = HAL(ip)
     try:
-        success = client.change_id(old_id, new_id)
+        success = hal.servo.change_id(old_id, new_id)
         if success:
             click.echo(f"Successfully changed servo ID from {old_id} to {new_id}")
         else:
@@ -130,8 +130,7 @@ def change_servo_id(old_id: int, new_id: int, ip: str) -> None:
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
     finally:
-        client.close()
+        hal.close()
 
 if __name__ == "__main__":
-    # python -m openlch.cli
     cli()
