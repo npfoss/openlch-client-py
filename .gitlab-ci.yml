@@ -18,8 +18,10 @@ build_docs:
   only:
     - tags
   script:
+    - cd openlch
     - pip install --upgrade pip
     - pip install pdoc
+    - pip install -r requirements.txt
     - pdoc openlch -o docs
   artifacts:
     paths:
