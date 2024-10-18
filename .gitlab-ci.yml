@@ -23,7 +23,7 @@ build_docs:
     - pip install pdoc
     - pip install -r requirements.txt
     - cd ..
-    - pdoc openlch -o docs
+    - pdoc openlch -o docs -d google
   artifacts:
     paths:
       - docs/
