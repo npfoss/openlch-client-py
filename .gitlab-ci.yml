@@ -22,6 +22,7 @@ build_docs:
     - pip install --upgrade pip
     - pip install pdoc
     - pip install -r requirements.txt
+    - cd ..
     - pdoc openlch -o docs
   artifacts:
     paths:
