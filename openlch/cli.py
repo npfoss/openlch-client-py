@@ -61,7 +61,9 @@ def set_position(id: int, position: float, ip: str) -> None:
     """Set position for a specific servo."""
     hal = HAL(ip)
     try:
-        hal.servo.set_positions([(id, position)])
+        current_pos = hal.servo.get_positions()
+        updated_pos = [(servo_id, position if servo_id == id else pos) for servo_id, pos in current_pos]
+        hal.servo.set_positions(updated_pos)
         click.echo(f"Position set for servo {id} to {position}")
     except Exception as e:
         click.echo(f"An error occurred: {str(e)}")
